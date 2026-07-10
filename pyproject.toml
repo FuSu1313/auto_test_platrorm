@@ -1,0 +1,138 @@
+[project]
+name = "auto-test-platrorm"
+version = "0.1.0"
+description = "AI驱动的全栈自动化测试管理平台"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    # ============ Django 核心 ============
+    "Django>=4.2.7,<4.3",
+    "djangorestframework>=3.14.0",
+    "django-cors-headers>=4.3.1",
+    "django-filter>=23.5",
+    "django-simpleui>=2025.6.24",
+    "djangorestframework-simplejwt>=5.5.1",
+    "drf-spectacular>=0.27.0",
+    "PyMySQL>=1.1.0",
+    # ============ 异步任务 & 消息 & WebSocket ============
+    "celery>=5.3.4",
+    "redis>=5.0.1",
+    "channels>=4.3.2",
+    "channels-redis>=4.3.0",
+    "daphne>=4.2.1",
+    "uvicorn>=0.40.0",
+    "websockets>=15.0.1",
+    # ============ 认证 & 安全 ============
+    "PyJWT>=2.10.1",
+    "cryptography>=41.0.7",
+    "Authlib>=1.6.6",
+    "pyotp>=2.9.0",
+    # ============ 配置 & 环境 ============
+    "python-decouple>=3.8",
+    "python-dotenv>=1.2.1",
+    # ============ HTTP & API 测试 ============
+    "httpx>=0.28.1",
+    "requests>=2.32.4",
+    "playwright>=1.40.0",
+    "selenium>=4.15.2",
+    "webdriver-manager>=4.0.1",
+    "browser-use>=0.10.1",
+    "allure-pytest>=2.15.0",
+    # ============ AI & LLM ============
+    "openai>=2.14.0",
+    "anthropic>=0.75.0",
+    "google-genai>=1.56.0",
+    "groq>=1.0.0",
+    "ollama>=0.6.1",
+    "langchain-core>=1.2.6",
+    "langchain-openai>=1.1.6",
+    "tiktoken>=0.12.0",
+    "mcp>=1.25.0",
+    "google-api-python-client>=2.187.0",
+    # ============ APP 自动化测试 ============
+    "airtest>=1.4.3",
+    "loguru>=0.7.3",
+    "Pillow>=12.1.0",
+    "screeninfo>=0.8.1",
+    # ============ OCR 文字识别 ============
+    "easyocr>=1.7.2",
+    "opencv-contrib-python>=4.6.0.66",
+    "numpy>=1.26.4",
+    # ============ 文档处理 ============
+    "pypdf>=6.5.0",
+    "PyPDF2>=3.0.1",
+    "python-docx>=1.2.0",
+    "beautifulsoup4>=4.14.3",
+    "lxml>=6.0.0",
+    "markdownify>=1.2.2",
+    # ============ 测试数据生成 ============
+    "Faker>=40.1.2",
+    "fakerx>=0.1.0",
+    # ============ 邮件 ============
+    "email-validator>=2.3.0",
+    # ============ 定时任务 & CRON ============
+    "croniter>=6.0.0",
+    # ============ 二维码 & 条形码 ============
+    "qrcode>=8.2",
+    "python-barcode>=0.16.1",
+    "pyzbar>=0.1.9",
+    # ============ 报告生成 ============
+    "reportlab>=4.2.0",
+    # ============ 数据验证 & 序列化 ============
+    "pydantic>=2.12.5",
+    "pydantic-settings>=2.12.0",
+    "PyYAML>=6.0.2",
+    "python-multipart>=0.0.21",
+    "orjson>=3.11.5",
+    "jsonschema>=4.25.0",
+    "jsonpatch>=1.33",
+    "jsonpath-ng>=1.7.0",
+    # ============ SSE & 流式 ============
+    "sse-starlette>=3.1.2",
+    "starlette>=0.50.0",
+    # ============ 工具库 ============
+    "python-dateutil>=2.9.0",
+    "pytz>=2025.2",
+    "tqdm>=4.67.1",
+    "rich>=14.2.0",
+    "psutil>=7.2.1",
+    "cloudpickle>=3.1.2",
+    "portalocker>=2.10.1",
+    "pycryptodome>=3.23.0",
+    "tenacity>=9.1.2",
+    "backoff>=2.2.1",
+    "uuid7>=0.1.0",
+    "docstring_parser>=0.17.0",
+    "inquirerpy>=0.3.4",
+    "posthog>=7.4.2",
+    "PySocks>=1.7.1",
+    # ============ 测试 ============
+    "pytest>=8.4.1",
+]
+
+[project.optional-dependencies]
+ui-automation = [
+    "playwright>=1.40.0",
+    "selenium>=4.15.2",
+    "webdriver-manager>=4.0.1",
+    "browser-use>=0.10.1",
+]
+app-automation = [
+    "airtest>=1.4.3",
+    "loguru>=0.7.3",
+    "Pillow>=12.1.0",
+]
+ocr = [
+    "easyocr>=1.7.2",
+    "opencv-contrib-python>=4.6.0.66",
+    "numpy>=1.26.4",
+]
+
+[tool.uv]
+dev-dependencies = []
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv.sources]
