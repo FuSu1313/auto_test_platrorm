@@ -128,8 +128,11 @@ ocr = [
     "numpy>=1.26.4",
 ]
 
-[tool.uv]
-dev-dependencies = []
+[dependency-groups]
+dev = []
+
+[tool.hatch.build.targets.wheel]
+packages = ["backend", "apps", "tools"]
 
 [build-system]
 requires = ["hatchling"]
