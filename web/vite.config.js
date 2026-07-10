@@ -13,9 +13,12 @@ function spaFallback() {
         // 不拦截 API 代理请求
         if (url.startsWith('/api/')) return next()
         // 不拦截 Vite 内部请求
-        if (url.startsWith('/@')) return next()
-        // 不拦截带文件扩展名的静态资源请求
-        if (/\.[a-zA-Z0-9]+$/.test(url)) return next()
+        if (url.startsWith('/@') || url.startsWith('/__vite')) return next()
+        // 不拦截 node_modules 依赖（预构建产物）
+        if (url.startsWith('/node_modules/')) return next()
+        // 不拦截带文件扩展名的静态资源（去掉 query string 再判断）
+        const pathname = url.split('?')[0]
+        if (/\.[a-zA-Z0-9]+$/.test(pathname)) return next()
         // 不拦截根路径
         if (url === '/') return next()
         // 其余走 SPA，重写到 / 返回 index.html
