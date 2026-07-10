@@ -850,7 +850,21 @@ print(response.json())`,
                   <Tag color={getStatusColor(response.status_code)}>{response.status_code}</Tag>
                   <Text type="secondary">{response.response_time?.toFixed(0) || 0}ms</Text>
                 </div>
+                <style>{`
+                  .response-tabs.ant-tabs > .ant-tabs-content-holder {
+                    flex: 1;
+                    min-height: 0;
+                    overflow: hidden;
+                  }
+                  .response-tabs .ant-tabs-content {
+                    height: 100%;
+                  }
+                  .response-tabs .ant-tabs-tabpane {
+                    height: 100%;
+                  }
+                `}</style>
                 <Tabs
+                  className="response-tabs"
                   activeKey={responseActiveTab}
                   onChange={setResponseActiveTab}
                   style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}
