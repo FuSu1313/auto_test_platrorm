@@ -386,10 +386,19 @@ class ApiRequestViewSet(viewsets.ModelViewSet):
                     headers[key] = resolver.resolve(headers[key])
 
             # 准备请求参数
-            params = request_params.copy() if request_params else {}
-            for key, value in params.items():
-                params[key] = self._replace_variables(str(value), variables)
-                params[key] = resolver.resolve(params[key])
+            params = {}
+            if isinstance(request_params, list):
+                for param_item in request_params:
+                    if param_item.get('enabled', True) and param_item.get('key'):
+                        key = param_item['key']
+                        value = self._replace_variables(str(param_item.get('value', '')), variables)
+                        value = resolver.resolve(value)
+                        params[key] = value
+            else:
+                params = request_params.copy() if request_params else {}
+                for key, value in params.items():
+                    params[key] = self._replace_variables(str(value), variables)
+                    params[key] = resolver.resolve(params[key])
 
             # 准备请求体
             body_data = None

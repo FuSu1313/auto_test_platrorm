@@ -163,10 +163,19 @@ def execute_test_suite(test_suite, environment, executed_by):
                         headers[key] = resolver.resolve(headers[key])
                 
                 # 准备请求参数
-                params = api_request.params.copy() if api_request.params else {}
-                for key, value in params.items():
-                    params[key] = _replace_variables(str(value), variables)
-                    params[key] = resolver.resolve(params[key])
+                params = {}
+                if isinstance(api_request.params, list):
+                    for param_item in api_request.params:
+                        if param_item.get('enabled', True) and param_item.get('key'):
+                            key = param_item['key']
+                            value = _replace_variables(str(param_item.get('value', '')), variables)
+                            value = resolver.resolve(value)
+                            params[key] = value
+                else:
+                    params = api_request.params.copy() if api_request.params else {}
+                    for key, value in params.items():
+                        params[key] = _replace_variables(str(value), variables)
+                        params[key] = resolver.resolve(params[key])
                 
                 # 准备请求体
                 body_data = None
@@ -324,10 +333,19 @@ def execute_api_request(api_request, environment, executed_by):
                 headers[key] = resolver.resolve(headers[key])
         
         # 准备请求参数
-        params = api_request.params.copy() if api_request.params else {}
-        for key, value in params.items():
-            params[key] = _replace_variables(str(value), variables)
-            params[key] = resolver.resolve(params[key])
+        params = {}
+        if isinstance(api_request.params, list):
+            for param_item in api_request.params:
+                if param_item.get('enabled', True) and param_item.get('key'):
+                    key = param_item['key']
+                    value = _replace_variables(str(param_item.get('value', '')), variables)
+                    value = resolver.resolve(value)
+                    params[key] = value
+        else:
+            params = api_request.params.copy() if api_request.params else {}
+            for key, value in params.items():
+                params[key] = _replace_variables(str(value), variables)
+                params[key] = resolver.resolve(params[key])
         
         # 准备请求体
         body_data = None

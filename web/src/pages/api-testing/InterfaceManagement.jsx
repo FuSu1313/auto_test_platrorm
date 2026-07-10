@@ -854,13 +854,13 @@ print(response.json())`,
                 <Tabs
                   activeKey={responseActiveTab}
                   onChange={setResponseActiveTab}
-                  style={{ flex: 1 }}
+                  style={{ flex: 1, minHeight: 0 }}
                   items={[
                     {
                       key: 'body',
                       label: 'Body',
                       children: (
-                        <pre style={{ padding: '12px', margin: 0, overflow: 'auto', height: '100%', fontSize: '12px' }}>
+                        <pre style={{ padding: '12px', margin: 0, overflow: 'auto', height: 'calc(250px - 56px)', fontSize: '12px', backgroundColor: '#fff', color: '#333' }}>
                           {formatResponseBody(response.response_data?.body)}
                         </pre>
                       )
@@ -869,7 +869,7 @@ print(response.json())`,
                       key: 'headers',
                       label: 'Headers',
                       children: (
-                        <div style={{ padding: '12px' }}>
+                        <div style={{ padding: '12px', overflow: 'auto', height: 'calc(250px - 56px)' }}>
                           {Object.entries(response.response_data?.headers || {}).map(([key, value]) => (
                             <div key={key} style={{ marginBottom: '4px' }}>
                               <Text strong>{key}:</Text> <Text>{value}</Text>
@@ -882,7 +882,7 @@ print(response.json())`,
                       key: 'assertions',
                       label: '断言结果',
                       children: (
-                        <div style={{ padding: '12px' }}>
+                        <div style={{ padding: '12px', overflow: 'auto', height: 'calc(250px - 56px)' }}>
                           {response.assertions_results?.length > 0 ? (
                             response.assertions_results.map((result, index) => (
                               <Tag
