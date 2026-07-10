@@ -547,7 +547,6 @@ print(response.json())`,
               新建集合
             </Button>
             <Button
-              type="success"
               size="small"
               icon={<PlusOutlined />}
               onClick={handleCreateEmptyRequest}
@@ -698,7 +697,7 @@ print(response.json())`,
             <Tabs
               activeKey={activeTab}
               onChange={setActiveTab}
-              style={{ flex: 1 }}
+              style={{ flex: 1, minHeight: 0 }}
               tabBarStyle={{ marginBottom: 0, paddingLeft: '12px' }}
               items={[
                 {
@@ -845,7 +844,7 @@ print(response.json())`,
             />
 
             {response && (
-              <div style={{ borderTop: '1px solid #f0f0f0', height: '250px', display: 'flex', flexDirection: 'column' }}>
+              <div style={{ borderTop: '1px solid #f0f0f0', flex: 1, minHeight: '200px', display: 'flex', flexDirection: 'column' }}>
                 <div style={{ padding: '8px 12px', borderBottom: '1px solid #f0f0f0', display: 'flex', alignItems: 'center', gap: '12px' }}>
                   <Title level={5} style={{ margin: 0 }}>响应</Title>
                   <Tag color={getStatusColor(response.status_code)}>{response.status_code}</Tag>
@@ -854,22 +853,35 @@ print(response.json())`,
                 <Tabs
                   activeKey={responseActiveTab}
                   onChange={setResponseActiveTab}
-                  style={{ flex: 1, minHeight: 0 }}
+                  style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}
+                  tabBarStyle={{ flexShrink: 0 }}
                   items={[
                     {
                       key: 'body',
                       label: 'Body',
                       children: (
-                        <pre style={{ padding: '12px', margin: 0, overflow: 'auto', height: 'calc(250px - 56px)', fontSize: '12px', backgroundColor: '#fff', color: '#333' }}>
-                          {formatResponseBody(response.response_data?.body)}
-                        </pre>
+                        <div style={{ overflow: 'auto', height: '100%' }}>
+                          <pre
+                            style={{
+                              padding: '12px',
+                              margin: 0,
+                              fontSize: '12px',
+                              backgroundColor: '#fff',
+                              color: '#333',
+                              whiteSpace: 'pre-wrap',
+                              wordBreak: 'break-all'
+                            }}
+                          >
+                            {formatResponseBody(response.response_data?.body)}
+                          </pre>
+                        </div>
                       )
                     },
                     {
                       key: 'headers',
                       label: 'Headers',
                       children: (
-                        <div style={{ padding: '12px', overflow: 'auto', height: 'calc(250px - 56px)' }}>
+                        <div style={{ padding: '12px', overflow: 'auto', height: '100%' }}>
                           {Object.entries(response.response_data?.headers || {}).map(([key, value]) => (
                             <div key={key} style={{ marginBottom: '4px' }}>
                               <Text strong>{key}:</Text> <Text>{value}</Text>
@@ -882,7 +894,7 @@ print(response.json())`,
                       key: 'assertions',
                       label: '断言结果',
                       children: (
-                        <div style={{ padding: '12px', overflow: 'auto', height: 'calc(250px - 56px)' }}>
+                        <div style={{ padding: '12px', overflow: 'auto', height: '100%' }}>
                           {response.assertions_results?.length > 0 ? (
                             response.assertions_results.map((result, index) => (
                               <Tag
